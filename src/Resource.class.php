@@ -28,7 +28,7 @@ class Resource {
 
 	/** Implement default handler for requests */
 	public function request() {
-		if(!_is_method_valid($this->method)) {
+		if(!Request::isMethodValid($this->method)) {
 			throw new Exception(405);
 		}
 		if(!method_exists($this, $this->method)) {
