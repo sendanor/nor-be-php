@@ -1,4 +1,5 @@
 <?php
+namespace Nor\BE;
 /*
  * nor-be -- HTTP resource implementation
  * Copyright 2013 Sendanor <info@sendanor.com>
@@ -6,26 +7,32 @@
  * https://github.com/Sendanor/nor-be-php
  */
 
-require_once('HTTPException.class.php');
-require_once('HTTPStatusCodes.class.php');
-require_once('JSONRequest.class.php');
+if(!class_exists('Exception')) {
+	require_once('Exception.class.php');
+}
+if(!class_exists('HTTPStatusCodes')) {
+	require_once('HTTPStatusCodes.class.php');
+}
+if(!class_exists('Request')) {
+	require_once('Request.class.php');
+}
 
 /** HTTP Resource */
-class HTTPResource {
+class Resource {
 
 	/** Constructor */
 	public function __construct($method=null, $path=null) {
-		$this->method = is_null($method) ? JSONRequest::getMethod() : $method;
-		$this->path = is_null($path) ? JSONRequest::getPath() : $path;
+		$this->method = is_null($method) ? Request::getMethod() : $method;
+		$this->path = is_null($path) ? Request::getPath() : $path;
 	}
 
 	/** Implement default handler for requests */
 	public function request() {
 		if(!_is_method_valid($this->method)) {
-			throw new HTTPException(405);
+			throw new Exception(405);
 		}
 		if(!method_exists($this, $this->method)) {
-			throw new HTTPException(405);
+			throw new Exception(405);
 		}
 		return call_user_func(array(&$this, $this->method));
 	}

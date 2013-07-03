@@ -1,4 +1,5 @@
 <?php
+namespace Nor\BE;
 /*
  * nor-be -- JSON-based HTTP request implementation
  * Copyright 2013 Sendanor <info@sendanor.com>
@@ -6,15 +7,20 @@
  * https://github.com/Sendanor/nor-be-php
  */
 
-require_once('HTTPException.class.php');
-require_once('HTTPStatusCodes.class.php');
+if(!class_exists('Exception')) {
+	require_once('Exception.class.php');
+}
+
+if(!class_exists('HTTPStatusCodes')) {
+	require_once('HTTPStatusCodes.class.php');
+}
 
 /** @fixme Implement base class */
-class JSONRequest {
+class Request {
 
 	/** Resolve HTTP request successfully with $data */
 	public static function resolve($data) {
-		if($data instanceof Exception) {
+		if($data instanceof \Exception) {
 			return self::reject($data);
 		}
 		header('Content-Type: application/json');
@@ -25,10 +31,10 @@ class JSONRequest {
 	/** Response with rejected HTTP request with $data */
 	public static function reject($data, $status) {
 
-		if($data instanceof HTTPException) {
+		if($data instanceof Exception) {
 			$status = $data->getCode();
 			$data = array('type'=>'error', 'msg'=>$data->getMessage(), 'code'=>$status);
-		} else if($data instanceof Exception) {
+		} else if($data instanceof \Exception) {
 			$status = 500;
 			$data = array('type'=>'error', 'msg'=>HTTPStatusCodes::get($status), 'code'=>$status);
 		} else if(HTTPStatusCodes::isCode($data)) {
@@ -79,7 +85,7 @@ class JSONRequest {
 	public static function run($res) {
 		try {
 			HTTPRequest::resolve( $res.request() );
-		} catch(Exception $e) {
+		} catch(\Exception $e) {
 			HTTPRequest::reject($e);
 		}
 	}

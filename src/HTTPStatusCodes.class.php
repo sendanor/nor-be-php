@@ -1,4 +1,5 @@
 <?php
+namespace Nor\BE;
 /*
  * nor-be -- HTTP status codes
  * Copyright 2013 Sendanor <info@sendanor.com>
