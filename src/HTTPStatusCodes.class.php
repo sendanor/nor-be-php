@@ -22,11 +22,11 @@ class HTTPStatusCodes {
 		503 => 'Service Unavailable'
 	);
 
-	public static isCode($code) {
+	public static function isCode($code) {
 		return is_numeric($code) && isset(self::$http_codes[$code]);
 	}
 
-	public static get($code) {
+	public static function get($code) {
 		if(!self::isCode($code)) return "Error";
 		return self::$http_codes[$code];
 	}

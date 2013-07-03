@@ -75,11 +75,11 @@ class HTTPRequest {
 	}
 
 	/* Default request runner */
-	public static function run(res) {
+	public static function run($res) {
 		try {
-			HTTPRequest::resolve( res.request() );
-		} catch(e) {
-			HTTPRequest::reject(e);
+			HTTPRequest::resolve( $res.request() );
+		} catch(Exception $e) {
+			HTTPRequest::reject($e);
 		}
 	}
 
