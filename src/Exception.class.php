@@ -7,10 +7,6 @@ namespace Nor\BE;
  * https://github.com/Sendanor/nor-be-php
  */
 
-if(!class_exists('HTTPStatusCodes')) {
-	require_once('HTTPStatusCodes.class.php');
-}
-
 /** HTTP Exception implementation */
 class Exception extends \Exception {
 

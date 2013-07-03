@@ -7,14 +7,6 @@ namespace Nor\BE;
  * https://github.com/Sendanor/nor-be-php
  */
 
-if(!class_exists('Exception')) {
-	require_once('Exception.class.php');
-}
-
-if(!class_exists('HTTPStatusCodes')) {
-	require_once('HTTPStatusCodes.class.php');
-}
-
 /** @fixme Implement base class */
 class Request {
 
