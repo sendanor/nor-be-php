@@ -7,6 +7,8 @@ namespace Nor\BE;
  * https://github.com/Sendanor/nor-be-php
  */
 
+require_once('ErrorLog.class.php');
+
 /** Autoloader */
 class Autoloader {
 
@@ -30,6 +32,7 @@ class Autoloader {
 	public static function load($name) {
 		self::initPaths();
 		foreach(self::$paths as $path) {
+			ErrorLog::write("Testing path ", $name, $path);
 			if(file_exists($path . "/" . $name . ".class.php")) {
 				require_once($path . "/" . $name . ".class.php");
 				return;
