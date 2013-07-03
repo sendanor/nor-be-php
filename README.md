@@ -30,3 +30,7 @@ Nor\BE\Request::run( new DateResource() );
 ?>
 ```
 
+License
+-------
+
+MIT license.
