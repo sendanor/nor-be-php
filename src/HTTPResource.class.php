@@ -8,15 +8,15 @@
 
 require_once('HTTPException.class.php');
 require_once('HTTPStatusCodes.class.php');
-require_once('HTTPRequest.class.php');
+require_once('JSONRequest.class.php');
 
 /** HTTP Resource */
 class HTTPResource {
 
 	/** Constructor */
 	public function __construct($method=null, $path=null) {
-		$this->method = is_null($method) ? HTTPRequest::getMethod() : $method;
-		$this->path = is_null($path) ? HTTPRequest::getPath() : $path;
+		$this->method = is_null($method) ? JSONRequest::getMethod() : $method;
+		$this->path = is_null($path) ? JSONRequest::getPath() : $path;
 	}
 
 	/** Implement default handler for requests */
