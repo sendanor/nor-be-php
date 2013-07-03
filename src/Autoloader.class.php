@@ -16,7 +16,7 @@ class Autoloader {
 	/** Add new include path */
 	public static function initPaths() {
 		if(!is_array(self::$paths)) {
-			self::$paths = array( dirname(__FILE__) );
+			self::$paths = array( dirname(dirname(__FILE__)) . '/include' );
 		}
 	}
 
