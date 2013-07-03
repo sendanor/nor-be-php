@@ -1,6 +1,6 @@
 <?php
 /*
- * nor-be -- HTTP request implementation
+ * nor-be -- JSON-based HTTP request implementation
  * Copyright 2013 Sendanor <info@sendanor.com>
  *           2013 Jaakko-Heikki Heusala <jheusala@iki.fi>
  * https://github.com/Sendanor/nor-be-php
@@ -9,7 +9,8 @@
 require_once('HTTPException.class.php');
 require_once('HTTPStatusCodes.class.php');
 
-class HTTPRequest {
+/** @fixme Implement base class */
+class JSONRequest {
 
 	/** Resolve HTTP request successfully with $data */
 	public static function resolve($data) {
