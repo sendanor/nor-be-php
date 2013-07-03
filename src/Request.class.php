@@ -82,9 +82,9 @@ class Request {
 	}
 
 	/* Default request runner */
-	public static function run($res) {
+	public static function run(Resource $res) {
 		try {
-			Request::resolve( $res.request() );
+			Request::resolve( $res->request() );
 		} catch(\Exception $e) {
 			Request::reject($e);
 		}
