@@ -84,9 +84,9 @@ class Request {
 	/* Default request runner */
 	public static function run($res) {
 		try {
-			HTTPRequest::resolve( $res.request() );
+			Request::resolve( $res.request() );
 		} catch(\Exception $e) {
-			HTTPRequest::reject($e);
+			Request::reject($e);
 		}
 	}
 
