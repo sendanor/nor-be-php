@@ -13,24 +13,17 @@ require_once('ErrorLog.class.php');
 class Autoloader {
 
 	/** Include paths */
-	private static $paths = null;
+	private $paths = null;
 
 	/** Add new include path */
-	public static function initPaths() {
-		if(is_null(self::$paths)) {
-			self::$paths = array( dirname(dirname(__FILE__)) . '/include' );
-		}
-	}
-
-	/** Add new include path */
-	public static function addPath($path) {
-		self::initPaths();
-		self::$paths[] = $path;
+	public function addPath($path) {
+		$this->paths[] = $path;
 	}
 
 	/** Constructor */
 	public function __construct() {
 		ErrorLog::write("DEBUG: Autoloader started");
+		$this->paths = array( dirname(dirname(__FILE__)) . '/include' );
 		spl_autoload_register(array($this, 'loader'));
 	}
 
@@ -41,9 +34,8 @@ class Autoloader {
 	}
 
 	/* Search and load class */
-	public static function loader($name) {
-		self::initPaths();
-		foreach(self::$paths as $path) {
+	public function loader($name) {
+		foreach($this->paths as $path) {
 			ErrorLog::write("Testing path ", $name, $path);
 			if(is_readable($path . "/" . $name . ".class.php")) {
 				require_once($path . "/" . $name . ".class.php");
