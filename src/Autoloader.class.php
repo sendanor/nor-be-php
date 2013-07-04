@@ -17,7 +17,7 @@ class Autoloader {
 
 	/** Add new include path */
 	public static function initPaths() {
-		if(!is_array(self::$paths)) {
+		if(is_null(self::$paths)) {
 			self::$paths = array( dirname(dirname(__FILE__)) . '/include' );
 		}
 	}
@@ -28,12 +28,24 @@ class Autoloader {
 		self::$paths[] = $path;
 	}
 
+	/** Constructor */
+	public function __construct() {
+		ErrorLog::write("DEBUG: Autoloader started");
+		spl_autoload_register(array($this, 'loader'));
+	}
+
+	/** Unregister autoloader */
+	public function __destruct() {
+		ErrorLog::write("DEBUG: Autoloader stopped");
+		spl_autoload_unregister(array($this, 'loader'));
+	}
+
 	/* Search and load class */
-	public static function load($name) {
+	public static function loader($name) {
 		self::initPaths();
 		foreach(self::$paths as $path) {
 			ErrorLog::write("Testing path ", $name, $path);
-			if(file_exists($path . "/" . $name . ".class.php")) {
+			if(is_readable($path . "/" . $name . ".class.php")) {
 				require_once($path . "/" . $name . ".class.php");
 				return;
 			}
@@ -41,8 +53,7 @@ class Autoloader {
 	}
 }
 
-ErrorLog::write(__NAMESPACE__ .'\Autoloader::load');
-spl_autoload_register(__NAMESPACE__ .'\Autoloader::load');
+return new Autoloader();
 
 /* EOF */
 ?>
