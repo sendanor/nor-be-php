@@ -41,6 +41,7 @@ class Autoloader {
 	}
 }
 
+ErrorLog::write(__NAMESPACE__ .'\Autoloader::load');
 spl_autoload_register(__NAMESPACE__ .'\Autoloader::load');
 
 /* EOF */
